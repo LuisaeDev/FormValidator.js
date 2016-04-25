@@ -1055,6 +1055,17 @@
 		}
 	};
 	
+	/*
+	 * Se exporta el módulo
+	 */
+	if (typeof define === 'function' && typeof define.amd === 'object' && define.amd) {
+		define(function() {
+			return FormValidator;
+		});
+	} else if (typeof module !== 'undefined' && module.exports) {
+		module.exports = FormValidator;
+	}
+
 	/**
 	 * Define la clase en el contexto window.
 	 */
@@ -1105,10 +1116,3 @@
 	}
 
 }());
-
-/*
- * Se exporta como módulo de CommonJS
- */
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = FormValidator;
-}
