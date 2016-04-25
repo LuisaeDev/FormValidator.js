@@ -21,7 +21,7 @@ Valida formularios HTML de una manera limpia, elegante y eficiente. No requiere 
 ## 1. Instalación
 A través bower
 ```
-bower install 'VoyagerCodes/FormValidator.js' --save
+bower install VoyagerCodes/FormValidator.js --save
 ```
 O puedes descargar la última versión aquí https://github.com/VoyagerCodes/FormValidator/releases
 
