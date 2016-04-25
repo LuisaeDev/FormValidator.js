@@ -12,7 +12,9 @@ gulp.task('dist', function() {
 	gulp.src('./src/FormValidator.js')
 		.pipe(gulp.dest('./dist'));
 	gulp.src('./src/FormValidator.js')
-		.pipe(gulpUglify())
+		.pipe(gulpUglify({
+			preserveComments: 'license'
+		}))
 		.pipe(gulpRename({
 			suffix: '.min'
 		}))

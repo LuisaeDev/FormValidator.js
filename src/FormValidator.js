@@ -1,6 +1,6 @@
-/*
+/*!
  * FormValidator.js
- * Version: 1.0.0
+ * Version: 1.0.2
  * Copyright (c) 2016 Luis Aguilar
  * https://github.com/VoyagerCodes/FormValidator.js
  */
@@ -103,9 +103,8 @@
 	 * Constructor de la clase.
 	 * 
 	 * @param {Object} options Conjunto de propiedades a definir
-	 * @param {Object} fields  Definición de múltiples campos
 	 */
-	var FormValidator = function(options, fields) {
+	var FormValidator = function(options) {
 
 		// Define las propiedades iniciales
 		this._errors = [];
@@ -1056,6 +1055,17 @@
 		}
 	};
 	
+	/*
+	 * Se exporta el módulo
+	 */
+	if (typeof define === 'function' && typeof define.amd === 'object' && define.amd) {
+		define(function() {
+			return FormValidator;
+		});
+	} else if (typeof module !== 'undefined' && module.exports) {
+		module.exports = FormValidator;
+	}
+
 	/**
 	 * Define la clase en el contexto window.
 	 */
@@ -1106,10 +1116,3 @@
 	}
 
 }());
-
-/*
- * Se exporta como módulo de CommonJS
- */
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = FormValidator;
-}
