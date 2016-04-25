@@ -103,9 +103,8 @@
 	 * Constructor de la clase.
 	 * 
 	 * @param {Object} options Conjunto de propiedades a definir
-	 * @param {Object} fields  Definición de múltiples campos
 	 */
-	var FormValidator = function(options, fields) {
+	var FormValidator = function(options) {
 
 		// Define las propiedades iniciales
 		this._errors = [];
