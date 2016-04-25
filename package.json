@@ -1,0 +1,32 @@
+{
+  "name": "FormValidator.js",
+  "version": "1.0.0",
+  "description": "Standalone form validator for javascript",
+  "main": "./src/FormValidator.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VoyagerCodes/FormValidator.js.git"
+  },
+  "keywords": [
+    "js",
+    "javascript",
+    "form",
+    "validator",
+    "validate"
+  ],
+  "author": "Luis Aguilar",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/VoyagerCodes/FormValidator.js/issues"
+  },
+  "homepage": "https://github.com/VoyagerCodes/FormValidator.js#readme",
+  "devDependencies": {
+    "bower": "^1.7.9",
+    "gulp": "^3.9.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglify": "^1.5.3"
+  }
+}

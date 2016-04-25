@@ -1,0 +1,24 @@
+{
+  "name": "FormValidator.js",
+  "homepage": "https://github.com/VoyagerCodes/FormValidator",
+  "authors": [
+    "Luis Aguilar <aguilar.copan@gmail.com>"
+  ],
+  "description": "Standalone form validator for javascript",
+  "main": "./dist/FormValidator.js",
+  "moduleType": [
+    "amd"
+  ],
+  "keywords": [
+    "form",
+    "validator",
+    "validate",
+    "javascript",
+    "js"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "bootstrap": "^3.3.6"
+  },
+  "dependencies": {}
+}
