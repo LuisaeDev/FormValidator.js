@@ -316,21 +316,21 @@ var validator = new FormValidator({
 
 ## Validación del formulario
 El formulario es validado cada véz que se realiza un submit:
-```
+```html
 <input type="submit" value="Enviar">
 <button type="submit">Enviar</button>
 ```
 
 También puedes utilizar el método **submit()** o **validate()** de la instancia **FormValidator**
 
-```
+```javascript
 validator.submit();
 validator.validate();
 ```
 ***Nota: los campos que estén deshabilitados son ignorados durante la validación.***
 
 ## Extiende tus propias reglas
-Puedes extender tus propias reglas a través del método **extendRule()***. Supongamos el siguiente ejemplo:
+Puedes extender tus propias reglas a través del método **extendRule()**. Supongamos el siguiente ejemplo:
 ```html
 <form id="myForm">
     <label>¿Cual es la raíz cuadrada de 225?</label>
@@ -338,7 +338,7 @@ Puedes extender tus propias reglas a través del método **extendRule()***. Supo
     <button type="submit">Validar</button>
 </form>
 ```
-```
+```javascript
 var validator = new FormValidator({
     form: '#myForm',
     question1: {
@@ -372,7 +372,7 @@ FormValidator.prototype.extendRule('equal', 'El valor del campo %label es incorr
 ```
 ## Extiende nuevos tipos para la regla type
 Si necesitas extender nuevos tipos para la regla type, lo puedes realizar a través del método **extendType()**.
-```
+```javascript
 var validator = new FormValidator({
     form: '#myForm',
     question1: {
