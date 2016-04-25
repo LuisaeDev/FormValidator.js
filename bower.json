@@ -5,7 +5,10 @@
     "Luis Aguilar <aguilar.copan@gmail.com>"
   ],
   "description": "Standalone form validator for javascript",
-  "main": "./dist/FormValidator.js",
+  "main": [
+    "./dist/FormValidator.js",
+    "./dist/FormValidator.min.js"
+  ],
   "moduleType": [
     "amd"
   ],
