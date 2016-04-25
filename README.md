@@ -1,14 +1,14 @@
 # FormValidator.js
 
 ### Versión
->1.0.1
+>1.0.2
 
 Valida formularios HTML de una manera limpia, elegante y eficiente. No requiere de otras dependencias como jQuery para su utilización.
 
 ---
 
 # Características
-- Fácil de aprender e implementar
+- Fácil de implementar
 - Orientado a objetos
 - No requiere dependencias, no necesita de jQuery
 - Permite extender tus propias reglas de validación
@@ -72,7 +72,6 @@ var validator = new FormValidator({
 
 }).success(function(values, evt) {
     console.log('Formulario validado correctamente!');
-    
 });
 ```
 ---
@@ -155,7 +154,7 @@ var validator = new FormValidator({
             // Puedes especificar todas las reglas que requieras para validar el campo
             rules: {
                 required:    true,
-                type:        'numeric',
+                type:        'number',
                 'min-range': 0,
                 'max-range': 100
             },
