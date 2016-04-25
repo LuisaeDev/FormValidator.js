@@ -242,6 +242,7 @@ rules: {
 
 ## Regla type
 La regla type soporta por default los siguientes valores:
+
 | Tipo             | Descripción                             |
 |------------------|-----------------------------------------|
 | **email**        | Correo electrónico                      |
