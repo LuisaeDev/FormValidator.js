@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>FormValidator.js</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1 user-scalable=no">
+		<link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css">
+		<script src="../dist/FormValidator.js"></script>
+		<script src="../bower_components/jquery/dist/jquery.min.js"></script>
+	</head>
+	<body>
+		<div style="margin-top: 20px;" class="container">
+			<div style="margin-bottom: 60px;" class="text-center">
+				<h1>VoyagerCodes / FormValidator.js</h1>
+				<p>Valida formularios HTML de una manera limpia, elegante y eficiente. No requiere de otras dependencias como jQuery para su utilización.</p>
+			</div>
+			<div style="padding-bottom: 20px;" class="row">
+				<div class="col-xs-12">
+					<h3>Formulario de registro</h3>
+					<form id="form">
+						<div class="form-group">
+							<label>Nombre completo</label>
+							<input name="fullname" type="text" class="form-control" placeholder="Ingresa tu nombre completo">
+						</div>
+						<div class="form-group">
+							<label>Correo electrónico</label>
+							<input name="email" type="text" class="form-control" placeholder="Ingresa tu correo electrónico">
+						</div>
+						<div class="form-group">
+							<label>Número de teléfono (Opcional)</label>
+							<input name="phone" type="text" class="form-control" placeholder="Ingresa tu número de teléfono">
+						</div>
+						<div class="form-group">
+							<label>Edad</label>
+							<input name="age" type="text" class="form-control" placeholder="Ingresa tu edad">
+						</div>
+						<label>Género</label>
+						<div class="radio">
+							<label><input name="gender" type="radio" value="m"> Masculino</label>
+							<label><input name="gender" type="radio" value="f"> Femenino</label>
+						</div>
+						<div class="form-group">
+							<label>Contraseña</label>
+							<input name="pass" type="password" class="form-control" placeholder="Contraseña">
+						</div>
+						<div class="form-group">
+							<label>Confirmar contraseña</label>
+							<input name="confirm-pass" type="password" class="form-control" placeholder="Confirma tu contraseña">
+						</div>
+
+						<hr>
+
+						<div class="form-group">
+							<label>Acerca de ti</label>
+							<textarea name="about" class="form-control" cols="30" rows="10"></textarea>
+						</div>
+						<div class="form-group">
+							<label>Imagen para tu perfil</label>
+							<input name="image" type="file">
+						</div>
+						<div class="checkbox">
+							<label><input name="check-topics" type="checkbox" value="1"> ¿Deseas recibir notificaciones en tu correo sobre nuevos cursos?</label>
+						</div>
+						<div class="form-group">
+							<label>¿Qué cursos te interesan, selecciona al menos 3?</label>
+							<select name="topics" class="form-control" multiple disabled>
+								<option value="js">Javascript</option>
+								<option value="css">CSS</option>
+								<option value="html">HTML</option>
+								<option value="ruby">Ruby</option>
+								<option value="php">PHP</option>
+							</select>
+						</div>
+
+						<hr>
+
+						<div class="checkbox">
+							<label><input name="check-terms" type="checkbox" value="1"> Acepto los términos</label>
+						</div>
+						<button type="submit" class="btn btn-primary">Crear mi cuenta</button>
+					</form>
+					<div id="error" style="margin-top: 10px; display: none;" class="alert alert-danger" role="alert"></div>
+					<div id="success" style="margin-top: 10px; display: none;" class="alert alert-success" role="success">El formulario se validó exitosamente</div>
+				</div>
+			</div>
+			<div style="padding-bottom: 60px;" class="row">
+				<div class="col-xs-12">
+					<h3>Javascript</h3>
+					<figure class="highlight">
+<pre><code class="language-scss" data-lang="scss">var validator = new FormValidator({
+	form:    '#form',
+	fields: {
+		fullname: {
+			label:  'Nombre completo',
+			rules: {
+				required: true,
+				type: 'letters',
+				'max-length': 100
+			}
+		},
+		email: {
+			label: 'Correo electrónico',
+			rules: {
+				required: true,
+				type: 'email'
+			}
+		},
+		phone: {
+			label: 'Número de teléfono',
+			rules: {
+				required: false,
+				type: 'numbers-dash'
+			}
+		},
+		age: {
+			label: 'Edad',
+			rules: {
+				required: true,
+				type: 'numbers',
+				'min-range': 18,
+				'max-range': 100
+			},
+			messages: {
+				'min-range': 'Debes ser mayor de edad para poder registrarte',
+				'max-range': '¿En serio, tienes más de 100 años?'
+			}
+		},
+		gender: {
+			rules: {
+				required: true
+			}
+		},
+		pass: {
+			label: 'Contraseña',
+			rules: {
+				required: true,
+				'min-length': 4,
+				'max-length': 16
+			}
+		},
+		'confirm-pass': {
+			label: 'Confirmar contraseña',
+			rules: {
+				required: true,
+				match: 'pass'
+			}
+		},
+		about: {
+			label: 'Acerca de ti',
+			rules: {
+				required: false,
+				'max-length': 255
+			}
+		},
+		image: {
+			label: 'Imagen de perfil',
+			rules: {
+				required: true,
+				type: 'file',
+				'file-ext': [ 'jpg', 'png' ],
+				'file-mime': [ 'image/jpeg', 'image/png'],
+				'file-max-size': 3
+			}
+		},
+		'check-topics': {
+			change: function(field, error, evt) {
+				var fieldTopics = this.getField('topics');
+				if (field.value) {
+					fieldTopics.el.disabled = false;
+				} else {
+					fieldTopics.el.disabled = true;
+				}
+			}
+		},
+		topics: {
+			label: 'Temas',
+			rules: {
+				required: true,
+				validate: function(value, field) {
+					if ((field.value) && (field.value.length >= 3)) {
+						return true;
+					}
+				}
+			},
+			messages: {
+				validate: 'Debes seleccionar al menos 3 temas'
+			}
+		},
+		'check-terms': {
+			label: 'Aceptar términos',
+			rules: {
+				required: true
+			},
+			messages: {
+				required: 'Debes aceptar los términos y condiciones'
+			}
+		}
+	}
+});
+</code></pre>
+					</figure>				
+				</div>
+			</div>
+		</div>
+		<script>
+			var validator = new FormValidator({
+				form:    '#form',
+				fields: {
+					fullname: {
+						label:  'Nombre completo',
+						rules: {
+							required: true,
+							type: 'letters',
+							'max-length': 100
+						}
+					},
+					email: {
+						label: 'Correo electrónico',
+						rules: {
+							required: true,
+							type: 'email'
+						}
+					},
+					phone: {
+						label: 'Número de teléfono',
+						rules: {
+							required: false,
+							type: 'numbers-dash'
+						}
+					},
+					age: {
+						label: 'Edad',
+						rules: {
+							required: true,
+							type: 'numbers',
+							'min-range': 18,
+							'max-range': 100
+						},
+						messages: {
+							'min-range': 'Debes ser mayor de edad para poder registrarte',
+							'max-range': '¿En serio, tienes más de 100 años?'
+						}
+					},
+					gender: {
+						rules: {
+							required: true
+						}
+					},
+					pass: {
+						label: 'Contraseña',
+						rules: {
+							required: true,
+							'min-length': 4,
+							'max-length': 16
+						}
+					},
+					'confirm-pass': {
+						label: 'Confirmar contraseña',
+						rules: {
+							required: true,
+							match: 'pass'
+						}
+					},
+					about: {
+						label: 'Acerca de ti',
+						rules: {
+							required: false,
+							'max-length': 255
+						}
+					},
+					image: {
+						label: 'Imagen de perfil',
+						rules: {
+							required: true,
+							type: 'file',
+							'file-ext': [ 'jpg', 'png' ],
+							'file-mime': [ 'image/jpeg', 'image/png'],
+							'file-max-size': 3
+						}
+					},
+					'check-topics': {
+						change: function(field, error, evt) {
+							var fieldTopics = this.getField('topics');
+							if (field.value) {
+								fieldTopics.el.disabled = false;
+							} else {
+								fieldTopics.el.disabled = true;
+							}
+						}
+					},
+					topics: {
+						label: 'Temas',
+						rules: {
+							required: true,
+							validate: function(value, field) {
+								if ((field.value) && (field.value.length >= 3)) {
+									return true;
+								}
+							}
+						},
+						messages: {
+							validate: 'Debes seleccionar al menos 3 temas'
+						}
+					},
+					'check-terms': {
+						label: 'Aceptar términos',
+						rules: {
+							required: true
+						},
+						messages: {
+							required: 'Debes aceptar los términos y condiciones'
+						}
+					}
+				}
+			})
+			.change(function(field, error, evt) {
+				if (error) {
+					$('#error').slideUp('fast', function() {
+						$('#error').insertAfter($(field.el)).html('<strong>Error! </strong>' + error.message).slideDown('fast');
+						$(field.el).focus();
+					});
+				}
+			})
+			.fail(function(errors, evt) {
+				if (errors) {
+					$('#error').insertAfter($(errors[0].field.el)).html('<strong>Error! </strong>' + errors[0].message).slideDown('fast');
+					$('html, body').animate({
+						scrollTop: $(errors[0].field.el).offset().top
+					}, 500, function() {
+						$(errors[0].field.el).focus();
+					});
+				}
+			})
+			.success(function(values, evt) {
+				$('#error').hide();
+				$('#success').show();
+			});
+		</script>
+	</body>
+</html>
