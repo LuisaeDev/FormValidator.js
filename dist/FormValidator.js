@@ -132,10 +132,26 @@
 			this.setFields(options.fields);
 		}
 
-		// Sustituye el evento de envío del formulario
+		// Sustituye el evento submit del formulario
 		var _this = this;
 		this.form.onsubmit = function(evt) {
-			return _this.validate(evt);
+			
+			// Valida el formulario
+			_this.validate(undefined, evt);
+
+			// Detiene la acción de envío del formulario cuando ha ocurrido un error o cuando se especificó la propiedad preventDefault
+			if ((_this._errors.length > 0) || (_this.preventDefault == true)) {
+				if (evt && evt.preventDefault) {
+					evt.preventDefault();
+				} else if (event) {
+
+					// IE
+					event.returnValue = false;
+				}
+				return false;
+			} else {
+				return true;
+			}
 		}
 	};
 
@@ -785,10 +801,11 @@
 	/**
 	 * Método para validar el formulario.
 	 * 
-	 * @param  {Object} evt Evento de javascript pasado al enviar el formulario
-	 * @return {void}
+	 * @param  {Function} callback Función callback llamada al finalizar la validación
+	 * @param  {Object}   evt      Evento de javascript pasado al enviar el formulario
+	 * @return {Boolean}           Indica si el formulario se validó exitosamente
 	 */
-	FormValidator.prototype.validate = function(evt) {
+	FormValidator.prototype.validate = function(callback, evt) {
 
 		try {
 
@@ -826,16 +843,16 @@
 				this._always.apply(this.context, [ this.getError(), evt ]);
 			}
 
+			// Construye un objeto a pasar con todos los valores de los campos del formulario
+			var values = new Object();
+			for (var i in this._fields) {
+				if (!this._fields[i].el.disabled) {
+					values[this._fields[i].name] = this._fields[i].value;
+				}
+			}
+
 			// Llama las funciones callback 'success' o 'fail'
 			if (this._errors.length == 0) {
-
-				// Construye un objeto a pasar con todos los valores de los campos del formulario
-				var values = new Object();
-				for (var i in this._fields) {
-					if (!this._fields[i].el.disabled) {
-						values[this._fields[i].name] = this._fields[i].value;
-					}
-				}
 
 				if (isFunction(this._success)) {
 					this._success.apply(this.context, [ values, evt ]);
@@ -847,29 +864,19 @@
 				}
 			}
 
-			// Detiene la acción de envío del formulario cuando ha ocurrido un error o cuando se especificó la propiedad preventDefault
-			if (evt) {
-				if ((this._errors.length > 0) || (this.preventDefault == true)) {
-					if (evt && evt.preventDefault) {
-						evt.preventDefault();
-					} else if (event) {
+			// Llama a la función callback
+			if (isFunction(callback)) {
+				callback.apply(this.context, [ values, this.getErrors() ]);
+			}
 
-						// IE
-						event.returnValue = false;
-					}
-					return false;
-				} else {
-					return true;
-				}
+			if (this._errors.length > 0) {
+				return false;
+			} else {
+				return true;
 			}
 
 		} catch(e) {
 			console.log(e);
-			if (evt && evt.preventDefault) {
-				evt.preventDefault();
-			} else if (event) {
-				event.returnValue = false;
-			}
 			return false;
 		}
 	};

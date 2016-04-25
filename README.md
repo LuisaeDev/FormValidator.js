@@ -1,7 +1,7 @@
 # FormValidator.js
 
 ### Versión
->1.0.0
+>1.0.1
 
 Valida formularios HTML de una manera limpia, elegante y eficiente. No requiere de otras dependencias como jQuery para su utilización.
 
@@ -103,7 +103,7 @@ var validator = new FormValidator({
 - **setFields**(fields)
 - **submit**()
 - **success**(callback)
-- **validate**()
+- **validate**(callback)
 
 ## Construcción de instancias
 La función constructora de la clase FormValidator solo acepta un argumento de tipo Object, en el cuál se definen múltiples opciones para la validación del formulario.
