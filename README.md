@@ -297,6 +297,20 @@ var validator = new FormValidator({
 })
 
 // Este método registra una función callback que es llamada cuando falla el envío del formulario
+.always(function(values, errors, evt) {
+
+    // En el argumento errors se reciben los múltiples errores producidos al validar el formulario
+    if (errors) {
+        for (var i in errors) {
+            console.log('Ocurrió un error en el campo ' +  errors[i].field.name);
+            console.log(errors[i].message);
+        }
+    } else {
+        // Si no hay errores el formulario fue validado correctamente
+    }
+})
+
+// Este método registra una función callback que es llamada cuando falla el envío del formulario
 .fail(function(errors, evt) {
 
     // En el argumento errors se reciben los múltiples errores producidos al validar el formulario
