@@ -1,6 +1,6 @@
 /*!
  * FormValidator.js
- * Version: 1.0.2
+ * Version: 1.0.3
  * Copyright (c) 2016 Luis Aguilar
  * https://github.com/VoyagerCodes/FormValidator.js
  */
@@ -837,17 +837,17 @@
 				}
 			}
 
-			// Llama la función callback 'always'
-			if (isFunction(this._always)) {
-				this._always.apply(this.context, [ this.getError(), evt ]);
-			}
-
 			// Construye un objeto a pasar con todos los valores de los campos del formulario
 			var values = new Object();
 			for (var i in this._fields) {
 				if (!this._fields[i].el.disabled) {
 					values[this._fields[i].name] = this._fields[i].value;
 				}
+			}
+
+			// Llama la función callback 'always'
+			if (isFunction(this._always)) {
+				this._always.apply(this.context, [ values, this.getErrors(), evt ]);
 			}
 
 			// Llama las funciones callback 'success' o 'fail'
@@ -863,9 +863,9 @@
 				}
 			}
 
-			// Llama a la función callback
+			// Llama a la función callback pasada al llamar este método
 			if (isFunction(callback)) {
-				callback.apply(this.context, [ values, this.getErrors() ]);
+				callback.apply(this.context, [ values, this.getErrors(), evt ]);
 			}
 
 			if (this._errors.length > 0) {
