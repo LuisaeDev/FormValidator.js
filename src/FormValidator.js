@@ -1,6 +1,6 @@
 /*!
  * FormValidator.js
- * Version: 1.0.2
+ * Version: 1.0.3
  * Copyright (c) 2016 Luis Aguilar
  * https://github.com/VoyagerCodes/FormValidator.js
  */

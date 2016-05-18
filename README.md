@@ -1,7 +1,7 @@
 # FormValidator.js
 
 ### Versión
->1.0.2
+>1.0.3
 
 Valida formularios HTML de una manera limpia, elegante y eficiente. No requiere de otras dependencias como jQuery para su utilización.
 
